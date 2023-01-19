@@ -4,6 +4,7 @@ namespace Omnipay\MyCash\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasCreditCard;
+use Omnipay\MyCash\Traits\HasCVS;
 use Omnipay\MyCash\Traits\HasDefaults;
 use Omnipay\MyCash\Traits\HasMyCash;
 
@@ -12,6 +13,7 @@ class PurchaseRequest extends AbstractRequest
     use HasMyCash;
     use HasDefaults;
     use HasCreditCard;
+    use HasCVS;
 
     public function getChoosePayment()
     {
@@ -54,12 +56,15 @@ class PurchaseRequest extends AbstractRequest
         }
 
         if (in_array($choosePayment, ['CVS', 'BARCODE', 'FunPoint'], true)) {
-            return array_merge($common, [
+            return array_filter(array_merge($common, [
                 'ChoosePayment' => $this->getChoosePayment(),
+                'ChooseStoreID' => $this->getChooseStoreID(),
                 'Amount' => (int) $this->getAmount(),
                 'TradeDesc' => $this->getDescription(),
                 'ItemName' => $this->getItemName(),
-            ]);
+            ]), static function ($value) {
+                return ! empty($value);
+            });
         }
 
         return array_merge($common, [
