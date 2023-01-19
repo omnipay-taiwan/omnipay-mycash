@@ -8,6 +8,12 @@ use Omnipay\Tests\TestCase;
 
 class CompletePurchaseRequestTest extends TestCase
 {
+    private $initialize = [
+        'HashKey' => 'FEFRGFEFWEF', // 廠商 HashKey(由易沛提供)
+        'HashIV' => 'v77hoKGq4kWxNNIS', // 廠商 HashIV(由易沛提供)
+        'ValidateKey' => 'ASDWDWDF',
+    ];
+
     public function testValidateFails(): void
     {
         $this->expectException(InvalidRequestException::class);
@@ -26,11 +32,7 @@ class CompletePurchaseRequestTest extends TestCase
         ];
 
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge([
-            'HashKey' => 'FEFRGFEFWEF', // 廠商 HashKey(由易沛提供)
-            'HashIV' => 'v77hoKGq4kWxNNIS', // 廠商 HashIV(由易沛提供)
-            'ValidateKey' => 'ASDWDWDF',
-        ], $options));
+        $request->initialize(array_merge($this->initialize, $options));
 
         $request->send();
     }
