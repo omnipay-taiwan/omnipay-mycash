@@ -103,4 +103,34 @@ class PurchaseRequestTest extends TestCase
 
         self::assertEquals('https://api.mycash.asia/payment/StorePaymentGate.php', $request->send()->getRedirectUrl());
     }
+
+    public function testFunPointGetData(): void
+    {
+        $options = [
+            'MerTradeID' => '20151202001', // 店家交易編號(店家自行設定，不得小於 6 個字元，不得重複)
+            'MerProductID' => 'sj6511', // 店家商品代號(店家自行設定，不得小於 4 個字元)
+            'MerUserID' => 'Karl01', // 店家消費者 ID
+            'ChoosePayment' => 'FunPoint', // CVS：超商代碼、BARCODE：超商條碼。
+            'Amount' => '30', // 交易金額
+            'TradeDesc' => '100003752', // FunPoint 會員編號
+            'ItemName' => 'ItemName', // 商品名稱
+        ];
+
+        $request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array_merge($this->initialize, $options));
+
+        self::assertEquals([
+            'HashKey' => 'FEFRGFEFWEF',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'ChoosePayment' => 'FunPoint',
+            'Amount' => '30',
+            'TradeDesc' => '100003752',
+            'ItemName' => 'ItemName',
+        ], $request->getData());
+
+        self::assertEquals('https://api.mycash.asia/payment/StorePaymentGate.php', $request->send()->getRedirectUrl());
+    }
 }

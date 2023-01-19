@@ -27,7 +27,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
             return $url.'VirAccountPaymentGate.php';
         }
 
-        if (in_array($choosePayment, ['CVS', 'BARCODE'], true)) {
+        if (in_array($choosePayment, ['CVS', 'BARCODE', 'FunPoint'], true)) {
             return $url.'StorePaymentGate.php';
         }
 

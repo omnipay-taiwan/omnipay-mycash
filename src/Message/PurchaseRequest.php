@@ -15,7 +15,7 @@ class PurchaseRequest extends AbstractRequest
 
     public function getChoosePayment()
     {
-        return strtoupper($this->getParameter('ChoosePayment') ?? '');
+        return $this->getParameter('ChoosePayment') ?? '';
     }
 
     public function setChoosePayment($value)
@@ -45,7 +45,7 @@ class PurchaseRequest extends AbstractRequest
             ]);
         }
 
-        if (in_array($choosePayment, ['CVS', 'BARCODE'], true)) {
+        if (in_array($choosePayment, ['CVS', 'BARCODE', 'FunPoint'], true)) {
             return array_merge($common, [
                 'ChoosePayment' => $this->getChoosePayment(),
                 'Amount' => (int) $this->getAmount(),
