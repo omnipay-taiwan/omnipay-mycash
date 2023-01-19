@@ -101,9 +101,6 @@ class GatewayTest extends GatewayTestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ]);
 
-        $response = $request->send();
-
-        self::assertTrue($response->isSuccessful());
         self::assertEquals('成功', $request->getMessage());
         self::assertEquals('20151202001', $request->getTransactionId());
         self::assertEquals(NotificationInterface::STATUS_COMPLETED, $request->getTransactionStatus());

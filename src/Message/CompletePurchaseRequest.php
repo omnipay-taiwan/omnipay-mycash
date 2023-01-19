@@ -72,6 +72,36 @@ class CompletePurchaseRequest extends AbstractRequest
         return $this->setParameter('CardNumber', $value);
     }
 
+    public function getATMNo()
+    {
+        return $this->getParameter('ATMNo');
+    }
+
+    public function setATMNo($value)
+    {
+        return $this->setParameter('ATMNo', $value);
+    }
+
+    public function getStoreName()
+    {
+        return $this->getParameter('StoreName');
+    }
+
+    public function setStoreName($value)
+    {
+        return $this->setParameter('StoreName', $value);
+    }
+
+    public function getStoreID()
+    {
+        return $this->getParameter('StoreID');
+    }
+
+    public function setStoreID($value)
+    {
+        return $this->setParameter('StoreID', $value);
+    }
+
     /**
      * @throws InvalidRequestException
      */
@@ -89,6 +119,9 @@ class CompletePurchaseRequest extends AbstractRequest
             'Auth_code' => $this->getAuthCode(),
             'CardNumber' => $this->getCardNumber(),
             'PaymentDate' => $this->getPaymentDate(),
+            'ATMNo' => $this->getATMNo(),
+            'StoreName' => $this->getStoreName(),
+            'StoreID' => $this->getStoreID(),
             'Validate' => $this->getValidate(),
         ];
 
@@ -96,7 +129,9 @@ class CompletePurchaseRequest extends AbstractRequest
             throw new InvalidRequestException('validate fails');
         }
 
-        return $data;
+        return array_filter($data, static function ($value) {
+            return ! empty($value);
+        });
     }
 
     public function sendData($data)
