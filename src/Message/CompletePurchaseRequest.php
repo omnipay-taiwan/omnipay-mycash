@@ -6,101 +6,19 @@ use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasDefaults;
 use Omnipay\MyCash\Traits\HasMyCash;
+use Omnipay\MyCash\Traits\HasRtn;
+use Omnipay\MyCash\Traits\HasRtnATM;
+use Omnipay\MyCash\Traits\HasRtnCreditCard;
+use Omnipay\MyCash\Traits\HasRtnCVS;
 
 class CompletePurchaseRequest extends AbstractRequest
 {
     use HasMyCash;
     use HasDefaults;
-
-    public function getRtnCode()
-    {
-        return $this->getParameter('RtnCode');
-    }
-
-    public function setRtnCode($value)
-    {
-        return $this->setParameter('RtnCode', $value);
-    }
-
-    public function getRtnMessage()
-    {
-        return $this->getParameter('RtnMessage');
-    }
-
-    public function setRtnMessage($value)
-    {
-        return $this->setParameter('RtnMessage', $value);
-    }
-
-    public function getPaymentDate()
-    {
-        return $this->getParameter('PaymentDate');
-    }
-
-    public function setPaymentDate($value)
-    {
-        return $this->setParameter('PaymentDate', $value);
-    }
-
-    public function getValidate()
-    {
-        return $this->getParameter('Validate');
-    }
-
-    public function setValidate($value)
-    {
-        return $this->setParameter('Validate', $value);
-    }
-
-    public function getAuthCode()
-    {
-        return $this->getParameter('Auth_code');
-    }
-
-    public function setAuthCode($value)
-    {
-        return $this->setParameter('Auth_code', $value);
-    }
-
-    public function getCardNumber()
-    {
-        return $this->getParameter('CardNumber');
-    }
-
-    public function setCardNumber($value)
-    {
-        return $this->setParameter('CardNumber', $value);
-    }
-
-    public function getATMNo()
-    {
-        return $this->getParameter('ATMNo');
-    }
-
-    public function setATMNo($value)
-    {
-        return $this->setParameter('ATMNo', $value);
-    }
-
-    public function getStoreName()
-    {
-        return $this->getParameter('StoreName');
-    }
-
-    public function setStoreName($value)
-    {
-        return $this->setParameter('StoreName', $value);
-    }
-
-    public function getStoreID()
-    {
-        return $this->getParameter('StoreID');
-    }
-
-    public function setStoreID($value)
-    {
-        return $this->setParameter('StoreID', $value);
-    }
+    use HasRtn;
+    use HasRtnCreditCard;
+    use HasRtnATM;
+    use HasRtnCVS;
 
     /**
      * @throws InvalidRequestException
