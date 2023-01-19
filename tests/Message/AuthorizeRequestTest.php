@@ -1,8 +1,9 @@
 <?php
 
-namespace Omnipay\Skeleton\Message;
+namespace Omnipay\MyCash\Tests\Message;
 
 use Omnipay\Common\CreditCard;
+use Omnipay\MyCash\Message\AuthorizeRequest;
 use Omnipay\Tests\TestCase;
 
 class AuthorizeRequestTest extends TestCase

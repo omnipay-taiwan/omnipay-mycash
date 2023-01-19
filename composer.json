@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Omnipay\\Skeleton\\": "src"
+            "Omnipay\\MyCash\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Omnipay\\Skeleton\\Test\\": "tests"
+            "Omnipay\\MyCash\\Tests\\": "tests"
         }
     },
     "scripts": {

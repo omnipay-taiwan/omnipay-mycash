@@ -1,19 +1,20 @@
 <?php
 
-namespace Omnipay\Skeleton;
+namespace Omnipay\MyCash\Tests;
 
+use Omnipay\MyCash\MyCashGateway;
 use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
 {
-    /** @var SkeletonGateway */
+    /** @var MyCashGateway */
     protected $gateway;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->gateway = new SkeletonGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new MyCashGateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = [
             'amount' => '10.00',
