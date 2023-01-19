@@ -5,6 +5,7 @@ namespace Omnipay\MyCash;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\MyCash\Message\AcceptNotificationRequest;
 use Omnipay\MyCash\Message\CompletePurchaseRequest;
+use Omnipay\MyCash\Message\FetchTransactionRequest;
 use Omnipay\MyCash\Message\PurchaseRequest;
 use Omnipay\MyCash\Message\ReceiveTransactionInfoRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
@@ -52,5 +53,10 @@ class Gateway extends AbstractGateway
     public function receiveTransactionInfo(array $options = [])
     {
         return $this->createRequest(ReceiveTransactionInfoRequest::class, $options);
+    }
+
+    public function fetchTransaction(array $options = [])
+    {
+        return $this->createRequest(FetchTransactionRequest::class, $options);
     }
 }

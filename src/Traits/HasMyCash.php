@@ -34,6 +34,16 @@ trait HasMyCash
         return $this->setParameter('ValidateKey', $value);
     }
 
+    public function getMerTradeID()
+    {
+        return $this->getTransactionId();
+    }
+
+    public function setMerTradeID($value)
+    {
+        return $this->setTransactionId($value);
+    }
+
     private function makeHash(array $data): string
     {
         $columns = [

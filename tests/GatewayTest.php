@@ -151,4 +151,24 @@ class GatewayTest extends GatewayTestCase
             'Validate' => '55aab2d7bec68a3a05183e3764ad4e3a',
         ], $response->getData());
     }
+
+    public function testFetchTransaction(): void
+    {
+        $this->getMockClient()->addResponse($this->getMockHttpResponse('FetchTransaction.txt'));
+
+        $response = $this->gateway->fetchTransaction(['MerTradeID' => '20151202001'])->send();
+
+        self::assertTrue($response->isSuccessful());
+        self::assertEquals('成功', $response->getMessage());
+        self::assertEquals('747C7FC3B56E4EE4B37A', $response->getTransactionId());
+        self::assertEquals([
+            'RtnCode' => '1',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '747C7FC3B56E4EE4B37A',
+            'MerProductID' => 'sj6511',
+            'Amount' => '1000',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'TransactionDate' => '2016-05-06 16:41:37',
+        ], $response->getData());
+    }
 }

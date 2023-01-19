@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Server: Apache
+Date: Sun, 11 May 2014 21:17:31 GMT
+Content-Type: application/json; charset=utf-8
+Status: 200 OK
+
+{"RtnCode": 1, "RtnMessage": "\u6210\u529f", "MerTradeID": "747C7FC3B56E4EE4B37A", "MerProductID": "sj6511", "Amount": 1000, "TransactionDate": "2016-05-06 16:41:37", "PaymentDate": "2016-05-06 16:41:37"}

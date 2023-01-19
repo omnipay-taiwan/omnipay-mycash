@@ -4,16 +4,6 @@ namespace Omnipay\MyCash\Traits;
 
 trait HasDefaults
 {
-    public function getMerTradeID()
-    {
-        return $this->getTransactionId();
-    }
-
-    public function setMerTradeID($value)
-    {
-        return $this->setTransactionId($value);
-    }
-
     public function getMerProductID()
     {
         return $this->getParameter('MerProductID');
