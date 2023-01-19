@@ -16,19 +16,20 @@ class GatewayTest extends GatewayTestCase
 
         $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->initialize([
-            'HashKey' => '5294y06JbISpM5x9',
+            'HashKey' => 'FEFRGFEFWEF',
             'HashIV' => 'v77hoKGq4kWxNNIS',
+            'ValidateKey' => 'ASDWDWDF',
         ]);
     }
 
     public function testPurchase(): void
     {
         $response = $this->gateway->purchase([
-            'transactionId' => '123456', // 店家交易編號(店家自行設定，不得小於 6 個字元，不得重複)
-            'amount' => '100', // 交易金額
+            'transactionId' => '20151202001', // 店家交易編號(店家自行設定，不得小於 6 個字元，不得重複)
+            'amount' => '30', // 交易金額
             'description' => 'ItemDesc', // 交易描述
-            'MerProductID' => 'Item', // 店家商品代號(店家自行設定，不得小於 4 個字元)
-            'MerUserID' => 'User', // 店家消費者 ID
+            'MerProductID' => 'sj6511', // 店家商品代號(店家自行設定，不得小於 4 個字元)
+            'MerUserID' => 'Karl01', // 店家消費者 ID
             'ItemName' => 'ItemName', // 商品名稱
             'UnionPay' => '0', // 信用卡類別(0：一般信用卡；1：銀聯卡)
             'Installment' => '0', // 信用卡分期(未傳或非 1：不分期，1：分 3 期(分期消費金額最少 100 元))
@@ -39,16 +40,48 @@ class GatewayTest extends GatewayTestCase
         self::assertEquals('https://api.mycash.asia/payment/CreditPaymentGate.php', $response->getRedirectUrl());
         self::assertEquals('POST', $response->getRedirectMethod());
         self::assertEquals([
-            'HashKey' => '5294y06JbISpM5x9',
+            'HashKey' => 'FEFRGFEFWEF',
             'HashIV' => 'v77hoKGq4kWxNNIS',
-            'MerTradeID' => '123456',
-            'MerProductID' => 'Item',
-            'MerUserID' => 'User',
-            'Amount' => '100',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
             'TradeDesc' => 'ItemDesc',
             'ItemName' => 'ItemName',
             'UnionPay' => '0',
             'Installment' => '0',
         ], $response->getRedirectData());
+    }
+
+    public function testCompletePurchase(): void
+    {
+        $response = $this->gateway->completePurchase([
+            'RtnCode' => '1',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
+            'Auth_code' => '12345',
+            'CardNumber' => '4311-2222-2222-2222',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
+        ])->send();
+
+        self::assertTrue($response->isSuccessful());
+        self::assertEquals('成功', $response->getMessage());
+        self::assertEquals('20151202001', $response->getTransactionId());
+        self::assertEquals([
+            'RtnCode' => '1',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
+            'Auth_code' => '12345',
+            'CardNumber' => '4311-2222-2222-2222',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
+        ], $response->getData());
     }
 }

@@ -10,17 +10,15 @@ class PurchaseRequestTest extends TestCase
     /** @var PurchaseRequest */
     private $request;
 
-    private $options;
-
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->options = [
-            'MerTradeID' => '123456', // 店家交易編號(店家自行設定，不得小於 6 個字元，不得重複)
-            'MerProductID' => 'Item', // 店家商品代號(店家自行設定，不得小於 4 個字元)
-            'MerUserID' => 'User', // 店家消費者 ID
-            'Amount' => '100', // 交易金額
+        $options = [
+            'MerTradeID' => '20151202001', // 店家交易編號(店家自行設定，不得小於 6 個字元，不得重複)
+            'MerProductID' => 'sj6511', // 店家商品代號(店家自行設定，不得小於 4 個字元)
+            'MerUserID' => 'Karl01', // 店家消費者 ID
+            'Amount' => '30', // 交易金額
             'TradeDesc' => 'ItemDesc', // 交易描述
             'ItemName' => 'ItemName', // 商品名稱
             'UnionPay' => '0', // 信用卡類別(0：一般信用卡；1：銀聯卡)
@@ -29,9 +27,10 @@ class PurchaseRequestTest extends TestCase
 
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(array_merge([
-            'HashKey' => '5294y06JbISpM5x9', // 廠商 HashKey(由易沛提供)
+            'HashKey' => 'FEFRGFEFWEF', // 廠商 HashKey(由易沛提供)
             'HashIV' => 'v77hoKGq4kWxNNIS', // 廠商 HashIV(由易沛提供)
-        ], $this->options));
+            'ValidateKey' => 'ASDWDWDF',
+        ], $options));
     }
 
     public function testGetData(): void
@@ -39,12 +38,12 @@ class PurchaseRequestTest extends TestCase
         $data = $this->request->getData();
 
         self::assertEquals([
-            'HashKey' => '5294y06JbISpM5x9',
+            'HashKey' => 'FEFRGFEFWEF',
             'HashIV' => 'v77hoKGq4kWxNNIS',
-            'MerTradeID' => '123456',
-            'MerProductID' => 'Item',
-            'MerUserID' => 'User',
-            'Amount' => '100',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
             'TradeDesc' => 'ItemDesc',
             'ItemName' => 'ItemName',
             'UnionPay' => '0',

@@ -45,6 +45,6 @@ class PurchaseRequest extends AbstractRequest
 
     public function sendData($data): PurchaseResponse
     {
-        return new PurchaseResponse($this, $data);
+        return $this->response = new PurchaseResponse($this, $data);
     }
 }
