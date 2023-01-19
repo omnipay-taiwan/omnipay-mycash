@@ -72,11 +72,14 @@ class CompletePurchaseRequest extends AbstractRequest
         return $this->setParameter('CardNumber', $value);
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
         $this->validate('transactionId', 'MerProductID', 'MerUserID', 'amount', 'PaymentDate', 'Validate');
 
-        return [
+        $data = [
             'RtnCode' => $this->getRtnCode(),
             'RtnMessage' => $this->getRtnMessage(),
             'MerTradeID' => $this->getTransactionId(),
@@ -88,17 +91,16 @@ class CompletePurchaseRequest extends AbstractRequest
             'PaymentDate' => $this->getPaymentDate(),
             'Validate' => $this->getValidate(),
         ];
-    }
 
-    /**
-     * @throws InvalidRequestException
-     */
-    public function sendData($data)
-    {
         if ($this->makeHash($data) !== $this->getValidate()) {
             throw new InvalidRequestException('validate fails');
         }
 
+        return $data;
+    }
+
+    public function sendData($data)
+    {
         return $this->response = new CompletePurchaseResponse($this, $data);
     }
 

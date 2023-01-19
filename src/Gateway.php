@@ -3,6 +3,7 @@
 namespace Omnipay\MyCash;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\MyCash\Message\AcceptNotificationRequest;
 use Omnipay\MyCash\Message\CompletePurchaseRequest;
 use Omnipay\MyCash\Message\PurchaseRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
@@ -36,5 +37,10 @@ class Gateway extends AbstractGateway
     public function completePurchase(array $options = [])
     {
         return $this->createRequest(CompletePurchaseRequest::class, $options);
+    }
+
+    public function acceptNotification(array $options = [])
+    {
+        return $this->createRequest(AcceptNotificationRequest::class, $options);
     }
 }

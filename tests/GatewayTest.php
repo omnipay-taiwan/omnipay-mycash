@@ -2,6 +2,7 @@
 
 namespace Omnipay\MyCash\Tests;
 
+use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\MyCash\Gateway;
 use Omnipay\Tests\GatewayTestCase;
 
@@ -83,5 +84,40 @@ class GatewayTest extends GatewayTestCase
             'PaymentDate' => '2016-05-06 16:41:37',
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ], $response->getData());
+    }
+
+    public function testAcceptNotification(): void
+    {
+        $request = $this->gateway->acceptNotification([
+            'RtnCode' => '1',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
+            'Auth_code' => '12345',
+            'CardNumber' => '4311-2222-2222-2222',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
+        ]);
+
+        $response = $request->send();
+
+        self::assertTrue($response->isSuccessful());
+        self::assertEquals('成功', $request->getMessage());
+        self::assertEquals('20151202001', $request->getTransactionId());
+        self::assertEquals(NotificationInterface::STATUS_COMPLETED, $request->getTransactionStatus());
+        self::assertEquals([
+            'RtnCode' => '1',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
+            'Auth_code' => '12345',
+            'CardNumber' => '4311-2222-2222-2222',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
+        ], $request->getData());
     }
 }
