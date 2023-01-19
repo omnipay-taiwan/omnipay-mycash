@@ -23,5 +23,4 @@ trait HasCreditCard
     {
         return $this->setParameter('Installment', $value);
     }
-
 }

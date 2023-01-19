@@ -23,6 +23,7 @@ trait HasMyCash
     {
         return $this->setParameter('HashIV', $value);
     }
+
     public function getValidateKey()
     {
         return $this->getParameter('ValidateKey');

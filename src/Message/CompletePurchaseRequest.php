@@ -72,16 +72,9 @@ class CompletePurchaseRequest extends AbstractRequest
         return $this->setParameter('CardNumber', $value);
     }
 
-    /**
-     * @throws InvalidRequestException
-     */
     public function getData()
     {
         $this->validate('transactionId', 'MerProductID', 'MerUserID', 'amount', 'PaymentDate', 'Validate');
-
-        if ($this->makeHash() !== $this->getValidate()) {
-            throw new InvalidRequestException('validate fails');
-        }
 
         return [
             'RtnCode' => $this->getRtnCode(),
@@ -97,20 +90,27 @@ class CompletePurchaseRequest extends AbstractRequest
         ];
     }
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function sendData($data)
     {
+        if ($this->makeHash($data) !== $this->getValidate()) {
+            throw new InvalidRequestException('validate fails');
+        }
+
         return $this->response = new CompletePurchaseResponse($this, $data);
     }
 
-    private function makeHash(): string
+    private function makeHash(array $data): string
     {
         $columns = [
             'ValidateKey' => $this->getValidateKey(),
             'HashKey' => $this->getHashKey(),
-            'RtnCode' => $this->getRtnCode(),
-            'TradeID' => $this->getTransactionId(),
-            'UserID' => $this->getMerUserID(),
-            'Money' => (int) $this->getAmount(),
+            'RtnCode' => $data['RtnCode'],
+            'TradeID' => $data['MerTradeID'],
+            'UserID' => $data['MerUserID'],
+            'Money' => $data['Amount'],
         ];
 
         $results = [];
