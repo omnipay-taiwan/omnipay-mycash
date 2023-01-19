@@ -15,7 +15,15 @@ class PurchaseRequest extends AbstractRequest
 
     public function getChoosePayment()
     {
-        return $this->getParameter('ChoosePayment') ?? '';
+        $lookup = [
+            'atm' => 'ATM',
+            'cvs' => 'CVS',
+            'barcode' => 'BARCODE',
+            'funpoint' => 'FunPoint',
+        ];
+        $choosePayment = strtolower($this->getParameter('ChoosePayment') ?? '');
+
+        return array_key_exists($choosePayment, $lookup) ? $lookup[$choosePayment] : 'CreditCard';
     }
 
     public function setChoosePayment($value)
