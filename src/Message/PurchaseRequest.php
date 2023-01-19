@@ -15,7 +15,7 @@ class PurchaseRequest extends AbstractRequest
 
     public function getChoosePayment()
     {
-        return $this->getParameter('ChoosePayment');
+        return strtoupper($this->getParameter('ChoosePayment') ?? '');
     }
 
     public function setChoosePayment($value)
@@ -27,18 +27,32 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate('HashKey', 'HashIV', 'transactionId', 'amount', 'description', 'MerProductID', 'MerUserID', 'ItemName');
 
-        return [
+        $common = [
             'HashKey' => $this->getHashKey(),
             'HashIV' => $this->getHashIV(),
             'MerTradeID' => $this->getTransactionId(),
             'MerProductID' => $this->getMerProductID(),
             'MerUserID' => $this->getMerUserID(),
+        ];
+
+        $choosePayment = $this->getChoosePayment();
+
+        if (in_array($choosePayment, ['CVS', 'BARCODE'])) {
+            return array_merge($common, [
+                'ChoosePayment' => $this->getChoosePayment(),
+                'Amount' => (int) $this->getAmount(),
+                'TradeDesc' => $this->getDescription(),
+                'ItemName' => $this->getItemName(),
+            ]);
+        }
+
+        return array_merge($common, [
             'Amount' => (int) $this->getAmount(),
             'TradeDesc' => $this->getDescription(),
             'ItemName' => $this->getItemName(),
             'UnionPay' => $this->getUnionPay(),
             'Installment' => $this->getInstallment(),
-        ];
+        ]);
     }
 
     public function sendData($data): PurchaseResponse

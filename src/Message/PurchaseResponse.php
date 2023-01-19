@@ -19,7 +19,14 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function getRedirectUrl(): string
     {
-        return 'https://api.mycash.asia/payment/CreditPaymentGate.php';
+        $url = 'https://api.mycash.asia/payment/';
+        $choosePayment = $this->request->getChoosePayment();
+
+        if (in_array($choosePayment, ['CVS', 'BARCODE'], true)) {
+            return $url.'StorePaymentGate.php';
+        }
+
+        return $url.'CreditPaymentGate.php';
     }
 
     public function getRedirectMethod(): string
