@@ -37,7 +37,15 @@ class PurchaseRequest extends AbstractRequest
 
         $choosePayment = $this->getChoosePayment();
 
-        if (in_array($choosePayment, ['CVS', 'BARCODE'])) {
+        if ($choosePayment === 'ATM') {
+            return array_merge($common, [
+                'Amount' => (int) $this->getAmount(),
+                'TradeDesc' => $this->getDescription(),
+                'ItemName' => $this->getItemName(),
+            ]);
+        }
+
+        if (in_array($choosePayment, ['CVS', 'BARCODE'], true)) {
             return array_merge($common, [
                 'ChoosePayment' => $this->getChoosePayment(),
                 'Amount' => (int) $this->getAmount(),
