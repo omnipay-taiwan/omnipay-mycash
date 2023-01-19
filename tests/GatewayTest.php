@@ -117,4 +117,38 @@ class GatewayTest extends GatewayTestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ], $request->getData());
     }
+
+    public function testReceiveTransactionInfo(): void
+    {
+        $response = $this->gateway->completePurchase([
+            'RtnCode' => '5',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'ExpireTime' => '2016-05-08 16:41:37',
+            'VatmBankCode' => '123',
+            'VatmAccount' => '12345678',
+            'Validate' => '55aab2d7bec68a3a05183e3764ad4e3a',
+        ])->send();
+
+        self::assertTrue($response->isSuccessful());
+        self::assertEquals('成功', $response->getMessage());
+        self::assertEquals('20151202001', $response->getTransactionId());
+        self::assertEquals([
+            'RtnCode' => '5',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'ExpireTime' => '2016-05-08 16:41:37',
+            'VatmBankCode' => '123',
+            'VatmAccount' => '12345678',
+            'Validate' => '55aab2d7bec68a3a05183e3764ad4e3a',
+        ], $response->getData());
+    }
 }

@@ -33,4 +33,23 @@ trait HasMyCash
     {
         return $this->setParameter('ValidateKey', $value);
     }
+
+    private function makeHash(array $data): string
+    {
+        $columns = [
+            'ValidateKey' => $this->getValidateKey(),
+            'HashKey' => $this->getHashKey(),
+            'RtnCode' => $data['RtnCode'],
+            'TradeID' => $data['MerTradeID'],
+            'UserID' => $data['MerUserID'],
+            'Money' => $data['Amount'],
+        ];
+
+        $results = [];
+        foreach ($columns as $key => $value) {
+            $results[] = "$key=$value";
+        }
+
+        return md5(implode('&', $results));
+    }
 }

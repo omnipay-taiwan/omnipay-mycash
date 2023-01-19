@@ -7,18 +7,52 @@ use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasDefaults;
 use Omnipay\MyCash\Traits\HasMyCash;
 use Omnipay\MyCash\Traits\HasRtn;
-use Omnipay\MyCash\Traits\HasRtnATM;
-use Omnipay\MyCash\Traits\HasRtnCreditCard;
-use Omnipay\MyCash\Traits\HasRtnCVS;
 
-class CompletePurchaseRequest extends AbstractRequest
+class ReceiveTransactionInfoRequest extends AbstractRequest
 {
     use HasMyCash;
     use HasDefaults;
     use HasRtn;
-    use HasRtnCreditCard;
-    use HasRtnATM;
-    use HasRtnCVS;
+
+    public function getExpireTime()
+    {
+        return $this->getParameter('ExpireTime ');
+    }
+
+    public function setExpireTime($value)
+    {
+        return $this->setParameter('ExpireTime ', $value);
+    }
+
+    public function getVatmBankCode()
+    {
+        return $this->getParameter('VatmBankCode');
+    }
+
+    public function setVatmBankCode($value)
+    {
+        return $this->setParameter('VatmBankCode', $value);
+    }
+
+    public function getVatmAccount()
+    {
+        return $this->getParameter('VatmAccount');
+    }
+
+    public function setVatmAccount($value)
+    {
+        return $this->setParameter('VatmAccount', $value);
+    }
+
+    public function getCodeNo()
+    {
+        return $this->getParameter('CodeNo');
+    }
+
+    public function setCodeNo($value)
+    {
+        return $this->setParameter('CodeNo', $value);
+    }
 
     /**
      * @throws InvalidRequestException
@@ -34,12 +68,11 @@ class CompletePurchaseRequest extends AbstractRequest
             'MerProductID' => $this->getMerProductID(),
             'MerUserID' => $this->getMerUserID(),
             'Amount' => (int) $this->getAmount(),
-            'Auth_code' => $this->getAuthCode(),
-            'CardNumber' => $this->getCardNumber(),
             'PaymentDate' => $this->getPaymentDate(),
-            'ATMNo' => $this->getATMNo(),
-            'StoreName' => $this->getStoreName(),
-            'StoreID' => $this->getStoreID(),
+            'ExpireTime' => $this->getExpireTime(),
+            'VatmBankCode' => $this->getVatmBankCode(),
+            'VatmAccount' => $this->getVatmAccount(),
+            'CodeNo' => $this->getCodeNo(),
             'Validate' => $this->getValidate(),
         ];
 
@@ -54,6 +87,6 @@ class CompletePurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        return $this->response = new CompletePurchaseResponse($this, $data);
+        return $this->response = new ReceiveTransactionInfoResponse($this, $data);
     }
 }
