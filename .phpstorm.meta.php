@@ -6,10 +6,10 @@ namespace PHPSTORM_META {
     /** @noinspection PhpUnusedLocalVariableInspection */
     $STATIC_METHOD_TYPES = [
       \Omnipay\Omnipay::create('') => [
-        'MyCash' instanceof \Omnipay\MyCash\MyCashGateway,
+        'MyCash' instanceof \Omnipay\MyCash\Gateway,
       ],
       \Omnipay\Common\GatewayFactory::create('') => [
-        'MyCash' instanceof \Omnipay\MyCash\MyCashGateway,
+        'MyCash' instanceof \Omnipay\MyCash\Gateway,
       ],
     ];
 }
