@@ -13,7 +13,7 @@ class CompletePurchaseResponse extends AbstractResponse
 
     public function getMessage()
     {
-        return $this->data['RtnMessage'];
+        return $this->data['RtnMessage'] ?? null;
     }
 
     public function getCode()
