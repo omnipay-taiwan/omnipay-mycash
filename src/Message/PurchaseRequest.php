@@ -15,7 +15,7 @@ class PurchaseRequest extends AbstractRequest
     use HasCreditCard;
     use HasCVS;
 
-    public function getChoosePayment()
+    public function getPaymentMethod()
     {
         $lookup = [
             'atm' => 'ATM',
@@ -23,14 +23,19 @@ class PurchaseRequest extends AbstractRequest
             'barcode' => 'BARCODE',
             'funpoint' => 'FunPoint',
         ];
-        $choosePayment = strtolower($this->getParameter('ChoosePayment') ?? '');
+        $paymentMethod = strtolower(parent::getPaymentMethod() ?? '');
 
-        return array_key_exists($choosePayment, $lookup) ? $lookup[$choosePayment] : 'CreditCard';
+        return array_key_exists($paymentMethod, $lookup) ? $lookup[$paymentMethod] : 'CreditCard';
+    }
+
+    public function getChoosePayment()
+    {
+        return $this->getPaymentMethod();
     }
 
     public function setChoosePayment($value)
     {
-        return $this->setParameter('ChoosePayment', $value);
+        return $this->setPaymentMethod($value);
     }
 
     public function getData()
@@ -45,9 +50,9 @@ class PurchaseRequest extends AbstractRequest
             'MerUserID' => $this->getMerUserID(),
         ];
 
-        $choosePayment = $this->getChoosePayment();
+        $paymentMethod = $this->getPaymentMethod();
 
-        if ($choosePayment === 'ATM') {
+        if ($paymentMethod === 'ATM') {
             return array_merge($common, [
                 'Amount' => (int) $this->getAmount(),
                 'TradeDesc' => $this->getDescription(),
@@ -55,9 +60,9 @@ class PurchaseRequest extends AbstractRequest
             ]);
         }
 
-        if (in_array($choosePayment, ['CVS', 'BARCODE', 'FunPoint'], true)) {
+        if (in_array($paymentMethod, ['CVS', 'BARCODE', 'FunPoint'], true)) {
             return array_filter(array_merge($common, [
-                'ChoosePayment' => $this->getChoosePayment(),
+                'ChoosePayment' => $this->getPaymentMethod(),
                 'ChooseStoreID' => $this->getChooseStoreID(),
                 'Amount' => (int) $this->getAmount(),
                 'TradeDesc' => $this->getDescription(),

@@ -21,7 +21,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     {
         $url = 'https://api.mycash.asia/payment/';
 
-        $choosePayment = $this->request->getChoosePayment();
+        $choosePayment = $this->request->getPaymentMethod();
 
         if ($choosePayment === 'ATM') {
             return $url.'VirAccountPaymentGate.php';
