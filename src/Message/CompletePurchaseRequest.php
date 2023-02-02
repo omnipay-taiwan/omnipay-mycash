@@ -27,7 +27,7 @@ class CompletePurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('transactionId', 'MerProductID', 'MerUserID', 'amount', 'PaymentDate', 'Validate');
+        $this->validate('transactionId', 'MerProductID', 'MerUserID', 'amount', 'Validate');
 
         $data = [
             'RtnCode' => $this->getRtnCode(),

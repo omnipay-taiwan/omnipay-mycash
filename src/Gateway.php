@@ -47,6 +47,10 @@ class Gateway extends AbstractGateway
 
     public function acceptNotification(array $options = [])
     {
+        if (array_key_exists('RtnCode', $options) && (string) $options['RtnCode'] === '5') {
+            return $this->receiveTransactionInfo($options);
+        }
+
         return $this->createRequest(AcceptNotificationRequest::class, $options);
     }
 
