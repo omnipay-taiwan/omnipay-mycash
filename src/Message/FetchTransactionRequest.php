@@ -2,6 +2,7 @@
 
 namespace Omnipay\MyCash\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
 
@@ -9,6 +10,11 @@ class FetchTransactionRequest extends AbstractRequest
 {
     use HasMyCash;
 
+    /**
+     * @return array
+     *
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
         $this->validate('HashKey', 'HashIV', 'transactionId');
@@ -20,6 +26,10 @@ class FetchTransactionRequest extends AbstractRequest
         ];
     }
 
+    /**
+     * @param  array  $data
+     * @return CompletePurchaseResponse
+     */
     public function sendData($data)
     {
         $response = $this->httpClient->request('POST', 'https://api.mycash.asia/CheckLedger.php', $data);

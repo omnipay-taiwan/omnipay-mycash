@@ -6,16 +6,26 @@ use Omnipay\Common\Message\NotificationInterface;
 
 class AcceptNotificationRequest extends CompletePurchaseRequest implements NotificationInterface
 {
+    /**
+     * @param  array  $data
+     * @return AcceptNotificationResponse
+     */
     public function sendData($data)
     {
         return $this->response = new AcceptNotificationResponse($this, $data);
     }
 
+    /**
+     * @return string
+     */
     public function getTransactionStatus()
     {
         return $this->getNotificationResponse()->getTransactionStatus();
     }
 
+    /**
+     * @return string|null
+     */
     public function getMessage()
     {
         return $this->getNotificationResponse()->getMessage();

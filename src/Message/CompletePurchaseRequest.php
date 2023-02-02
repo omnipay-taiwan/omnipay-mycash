@@ -21,6 +21,8 @@ class CompletePurchaseRequest extends AbstractRequest
     use HasRtnCVS;
 
     /**
+     * @return array
+     *
      * @throws InvalidRequestException
      */
     public function getData()
@@ -52,6 +54,10 @@ class CompletePurchaseRequest extends AbstractRequest
         });
     }
 
+    /**
+     * @param  array  $data
+     * @return CompletePurchaseResponse
+     */
     public function sendData($data)
     {
         return $this->response = new CompletePurchaseResponse($this, $data);

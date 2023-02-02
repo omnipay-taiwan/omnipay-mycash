@@ -7,17 +7,26 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    public function isSuccessful(): bool
+    /**
+     * @return bool
+     */
+    public function isSuccessful()
     {
         return false;
     }
 
-    public function isRedirect(): bool
+    /**
+     * @return bool
+     */
+    public function isRedirect()
     {
         return true;
     }
 
-    public function getRedirectUrl(): string
+    /**
+     * @return string
+     */
+    public function getRedirectUrl()
     {
         $url = 'https://api.mycash.asia/payment/';
 
@@ -34,12 +43,18 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         return $url.'CreditPaymentGate.php';
     }
 
-    public function getRedirectMethod(): string
+    /**
+     * @return string
+     */
+    public function getRedirectMethod()
     {
         return 'POST';
     }
 
-    public function getRedirectData(): array
+    /**
+     * @return array
+     */
+    public function getRedirectData()
     {
         return $this->getData();
     }

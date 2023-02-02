@@ -44,7 +44,11 @@ trait HasMyCash
         return $this->setTransactionId($value);
     }
 
-    private function makeHash(array $data): string
+    /**
+     * @param  array  $data
+     * @return string
+     */
+    private function makeHash(array $data)
     {
         $columns = [
             'ValidateKey' => $this->getValidateKey(),

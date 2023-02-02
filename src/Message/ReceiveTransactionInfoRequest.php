@@ -14,47 +14,77 @@ class ReceiveTransactionInfoRequest extends AbstractRequest
     use HasDefaults;
     use HasRtn;
 
+    /**
+     * @return string
+     */
     public function getExpireTime()
     {
-        return $this->getParameter('ExpireTime ');
+        return $this->getParameter('ExpireTime');
     }
 
+    /**
+     * @param  string  $value
+     * @return ReceiveTransactionInfoRequest
+     */
     public function setExpireTime($value)
     {
-        return $this->setParameter('ExpireTime ', $value);
+        return $this->setParameter('ExpireTime', $value);
     }
 
+    /**
+     * @return string
+     */
     public function getVatmBankCode()
     {
         return $this->getParameter('VatmBankCode');
     }
 
+    /**
+     * @param  string  $value
+     * @return ReceiveTransactionInfoRequest
+     */
     public function setVatmBankCode($value)
     {
         return $this->setParameter('VatmBankCode', $value);
     }
 
+    /**
+     * @return string
+     */
     public function getVatmAccount()
     {
         return $this->getParameter('VatmAccount');
     }
 
+    /**
+     * @param  string  $value
+     * @return ReceiveTransactionInfoRequest
+     */
     public function setVatmAccount($value)
     {
         return $this->setParameter('VatmAccount', $value);
     }
 
+    /**
+     * @return string
+     */
     public function getCodeNo()
     {
         return $this->getParameter('CodeNo');
     }
 
+    /**
+     * @param  string  $value
+     * @return ReceiveTransactionInfoRequest
+     */
     public function setCodeNo($value)
     {
         return $this->setParameter('CodeNo', $value);
     }
 
     /**
+     * @return array
+     *
      * @throws InvalidRequestException
      */
     public function getData()
@@ -85,6 +115,10 @@ class ReceiveTransactionInfoRequest extends AbstractRequest
         });
     }
 
+    /**
+     * @param  array  $data
+     * @return ReceiveTransactionInfoResponse
+     */
     public function sendData($data)
     {
         return $this->response = new ReceiveTransactionInfoResponse($this, $data);

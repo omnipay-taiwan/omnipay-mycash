@@ -2,6 +2,7 @@
 
 namespace Omnipay\MyCash\Message;
 
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasCreditCard;
 use Omnipay\MyCash\Traits\HasCVS;
@@ -15,6 +16,9 @@ class PurchaseRequest extends AbstractRequest
     use HasCreditCard;
     use HasCVS;
 
+    /**
+     * @return string
+     */
     public function getPaymentMethod()
     {
         $lookup = [
@@ -28,19 +32,40 @@ class PurchaseRequest extends AbstractRequest
         return array_key_exists($paymentMethod, $lookup) ? $lookup[$paymentMethod] : 'CreditCard';
     }
 
+    /**
+     * @return string
+     */
     public function getChoosePayment()
     {
         return $this->getPaymentMethod();
     }
 
+    /**
+     * @param  string  $value
+     * @return PurchaseRequest
+     */
     public function setChoosePayment($value)
     {
         return $this->setPaymentMethod($value);
     }
 
+    /**
+     * @return array
+     *
+     * @throws InvalidRequestException
+     */
     public function getData()
     {
-        $this->validate('HashKey', 'HashIV', 'transactionId', 'amount', 'description', 'MerProductID', 'MerUserID', 'ItemName');
+        $this->validate(
+            'HashKey',
+            'HashIV',
+            'transactionId',
+            'amount',
+            'description',
+            'MerProductID',
+            'MerUserID',
+            'ItemName'
+        );
 
         $common = [
             'HashKey' => $this->getHashKey(),
@@ -81,6 +106,10 @@ class PurchaseRequest extends AbstractRequest
         ]);
     }
 
+    /**
+     * @param  array  $data
+     * @return PurchaseResponse
+     */
     public function sendData($data): PurchaseResponse
     {
         return $this->response = new PurchaseResponse($this, $data);
