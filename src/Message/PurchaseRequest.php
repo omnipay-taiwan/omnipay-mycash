@@ -108,7 +108,6 @@ class PurchaseRequest extends AbstractRequest
 
     /**
      * @param  array  $data
-     * @return PurchaseResponse
      */
     public function sendData($data): PurchaseResponse
     {

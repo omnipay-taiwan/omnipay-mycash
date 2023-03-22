@@ -2,6 +2,8 @@
 
 namespace Omnipay\MyCash\Traits;
 
+use Omnipay\MyCash\Hasher;
+
 trait HasMyCash
 {
     public function getHashKey()
@@ -45,25 +47,17 @@ trait HasMyCash
     }
 
     /**
-     * @param  array  $data
      * @return string
      */
     private function makeHash(array $data)
     {
-        $columns = [
-            'ValidateKey' => $this->getValidateKey(),
-            'HashKey' => $this->getHashKey(),
+        $hasher = new Hasher($this->getHashKey(), $this->getValidateKey());
+
+        return $hasher->make([
             'RtnCode' => $data['RtnCode'],
             'TradeID' => $data['MerTradeID'],
             'UserID' => $data['MerUserID'],
             'Money' => $data['Amount'],
-        ];
-
-        $results = [];
-        foreach ($columns as $key => $value) {
-            $results[] = "$key=$value";
-        }
-
-        return md5(implode('&', $results));
+        ]);
     }
 }

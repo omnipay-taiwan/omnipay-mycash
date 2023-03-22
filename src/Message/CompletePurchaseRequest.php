@@ -46,7 +46,7 @@ class CompletePurchaseRequest extends AbstractRequest
         ];
 
         if ($this->makeHash($data) !== $this->getValidate()) {
-            throw new InvalidRequestException('validate fails');
+            throw new InvalidRequestException('Incorrect hash');
         }
 
         return array_filter($data, static function ($value) {
