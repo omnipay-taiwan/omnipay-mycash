@@ -4,6 +4,7 @@ namespace Omnipay\MyCash\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\MyCash\Traits\HasAmount;
 use Omnipay\MyCash\Traits\HasDefaults;
 use Omnipay\MyCash\Traits\HasMyCash;
 use Omnipay\MyCash\Traits\HasRtn;
@@ -13,6 +14,7 @@ class ReceiveTransactionInfoRequest extends AbstractRequest
     use HasMyCash;
     use HasDefaults;
     use HasRtn;
+    use HasAmount;
 
     /**
      * @return string
@@ -97,7 +99,7 @@ class ReceiveTransactionInfoRequest extends AbstractRequest
             'MerTradeID' => $this->getTransactionId(),
             'MerProductID' => $this->getMerProductID(),
             'MerUserID' => $this->getMerUserID(),
-            'Amount' => (int) $this->getAmount(),
+            'Amount' => $this->getAmount(),
             'PaymentDate' => $this->getPaymentDate(),
             'ExpireTime' => $this->getExpireTime(),
             'VatmBankCode' => $this->getVatmBankCode(),

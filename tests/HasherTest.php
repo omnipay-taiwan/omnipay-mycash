@@ -14,7 +14,7 @@ class HasherTest extends TestCase
         $rtnCode = '1';
         $tradeId = '20151202001';
         $userId = 'Karl01';
-        $money = '30';
+        $money = '30.00';
 
         $hasher = new Hasher($hashKey, $validateKey);
 

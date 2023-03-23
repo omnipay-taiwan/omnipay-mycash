@@ -4,6 +4,7 @@ namespace Omnipay\MyCash\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\MyCash\Traits\HasAmount;
 use Omnipay\MyCash\Traits\HasCreditCard;
 use Omnipay\MyCash\Traits\HasCVS;
 use Omnipay\MyCash\Traits\HasDefaults;
@@ -15,6 +16,7 @@ class PurchaseRequest extends AbstractRequest
     use HasDefaults;
     use HasCreditCard;
     use HasCVS;
+    use HasAmount;
 
     /**
      * @return string
@@ -79,7 +81,7 @@ class PurchaseRequest extends AbstractRequest
 
         if ($paymentMethod === 'ATM') {
             return array_merge($common, [
-                'Amount' => (int) $this->getAmount(),
+                'Amount' => $this->getAmount(),
                 'TradeDesc' => $this->getDescription(),
                 'ItemName' => $this->getItemName(),
             ]);
@@ -89,7 +91,7 @@ class PurchaseRequest extends AbstractRequest
             return array_filter(array_merge($common, [
                 'ChoosePayment' => $this->getPaymentMethod(),
                 'ChooseStoreID' => $this->getChooseStoreID(),
-                'Amount' => (int) $this->getAmount(),
+                'Amount' => $this->getAmount(),
                 'TradeDesc' => $this->getDescription(),
                 'ItemName' => $this->getItemName(),
             ]), static function ($value) {
@@ -98,7 +100,7 @@ class PurchaseRequest extends AbstractRequest
         }
 
         return array_merge($common, [
-            'Amount' => (int) $this->getAmount(),
+            'Amount' => $this->getAmount(),
             'TradeDesc' => $this->getDescription(),
             'ItemName' => $this->getItemName(),
             'UnionPay' => $this->getUnionPay(),

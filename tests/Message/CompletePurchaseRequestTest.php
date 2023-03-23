@@ -17,6 +17,7 @@ class CompletePurchaseRequestTest extends TestCase
     public function testValidateFails(): void
     {
         $this->expectException(InvalidRequestException::class);
+        $this->expectExceptionMessage('Incorrect hash');
 
         $options = [
             'RtnCode' => '1',
@@ -33,7 +34,28 @@ class CompletePurchaseRequestTest extends TestCase
 
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize(array_merge($this->initialize, $options));
-
         $request->send();
+    }
+
+    public function testValidateSuccessful(): void
+    {
+        $options = [
+            'RtnCode' => '1',
+            'RtnMessage' => '成功',
+            'MerTradeID' => '20151202001',
+            'MerProductID' => 'sj6511',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30.00',
+            'Auth_code' => '12345',
+            'CardNumber' => '4311-2222-2222-2222',
+            'PaymentDate' => '2016-05-06 16:41:37',
+            'Validate' => '216f3a2f5b3665b0c5c77860d3c18692',
+        ];
+
+        $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request->initialize(array_merge($this->initialize, $options));
+        $response = $request->send();
+
+        self::assertTrue($response->isSuccessful());
     }
 }
