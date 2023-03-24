@@ -9,18 +9,33 @@ class HasherTest extends TestCase
 {
     public function testMakeHash()
     {
-        $hashKey = 'FEFRGFEFWEF';
         $validateKey = 'ASDWDWDF';
-        $rtnCode = '1';
-        $tradeId = '20151202001';
-        $userId = 'Karl01';
-        $money = '30.00';
+        $hashKey = 'FEFRGFEFWEF';
+
+        $data = [
+            'RtnCode' => '1',
+            'MerTradeID' => '20151202001',
+            'MerUserID' => 'Karl01',
+            'Amount' => '30.00',
+        ];
+
+        $example = [
+            'ValidateKey' => $validateKey,
+            'HashKey' => $hashKey,
+            'RtnCode' => $data['RtnCode'],
+            'TradeID' => $data['MerTradeID'],
+            'UserID' => $data['MerUserID'],
+            'Money' => $data['Amount'],
+        ];
 
         $hasher = new Hasher($hashKey, $validateKey);
+        $actual = $hasher->make([
+            'RtnCode' => $data['RtnCode'],
+            'TradeID' => $data['MerTradeID'],
+            'UserID' => $data['MerUserID'],
+            'Money' => $data['Amount'],
+        ]);
 
-        $expected = md5("ValidateKey=$validateKey&HashKey=$hashKey&RtnCode=$rtnCode&TradeID=$tradeId&UserID=$userId&Money=$money");
-        $actual = $hasher->make(['RtnCode' => $rtnCode, 'TradeID' => $tradeId, 'UserID' => $userId, 'Money' => $money]);
-
-        self::assertEquals($expected, $actual);
+        self::assertEquals(md5(http_build_query($example)), $actual);
     }
 }
