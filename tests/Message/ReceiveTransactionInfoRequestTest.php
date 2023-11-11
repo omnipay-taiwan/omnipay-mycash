@@ -29,8 +29,9 @@ class ReceiveTransactionInfoRequestTest extends TestCase
             'Validate' => '55aab2d7bec68a3a05183e3764ad4e3a',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new ReceiveTransactionInfoRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         $response = $request->send();
 
@@ -64,8 +65,9 @@ class ReceiveTransactionInfoRequestTest extends TestCase
             'Validate' => '55aab2d7bec68a3a05183e3764ad4e3a',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new ReceiveTransactionInfoRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         $response = $request->send();
 

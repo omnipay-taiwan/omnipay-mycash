@@ -33,8 +33,9 @@ class AcceptNotificationRequestTest extends TestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba1',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         $request->send();
     }
@@ -54,8 +55,9 @@ class AcceptNotificationRequestTest extends TestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         self::assertEquals('成功', $request->getMessage());
         self::assertEquals('20151202001', $request->getTransactionId());
@@ -88,8 +90,9 @@ class AcceptNotificationRequestTest extends TestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         self::assertEquals('成功', $request->getMessage());
         self::assertEquals('20151202001', $request->getTransactionId());
@@ -122,8 +125,9 @@ class AcceptNotificationRequestTest extends TestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         self::assertEquals('成功', $request->getMessage());
         self::assertEquals('20151202001', $request->getTransactionId());
@@ -155,8 +159,9 @@ class AcceptNotificationRequestTest extends TestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new AcceptNotificationRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
 
         self::assertEquals('成功', $request->getMessage());
         self::assertEquals('20151202001', $request->getTransactionId());

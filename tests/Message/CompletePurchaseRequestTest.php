@@ -32,8 +32,9 @@ class CompletePurchaseRequestTest extends TestCase
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba1',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
         $request->send();
     }
 
@@ -52,8 +53,9 @@ class CompletePurchaseRequestTest extends TestCase
             'Validate' => '216f3a2f5b3665b0c5c77860d3c18692',
         ];
 
+        $this->getHttpRequest()->request->add($options);
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $request->initialize(array_merge($this->initialize, $options));
+        $request->initialize($this->initialize);
         $response = $request->send();
 
         self::assertTrue($response->isSuccessful());

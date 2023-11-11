@@ -56,7 +56,7 @@ class GatewayTest extends GatewayTestCase
 
     public function testCompletePurchase(): void
     {
-        $response = $this->gateway->completePurchase([
+        $this->getHttpRequest()->request->add([
             'RtnCode' => '1',
             'RtnMessage' => '成功',
             'MerTradeID' => '20151202001',
@@ -67,7 +67,8 @@ class GatewayTest extends GatewayTestCase
             'CardNumber' => '4311-2222-2222-2222',
             'PaymentDate' => '2016-05-06 16:41:37',
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
-        ])->send();
+        ]);
+        $response = $this->gateway->completePurchase()->send();
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('成功', $response->getMessage());
@@ -88,7 +89,7 @@ class GatewayTest extends GatewayTestCase
 
     public function testAcceptNotification(): void
     {
-        $request = $this->gateway->acceptNotification([
+        $data = [
             'RtnCode' => '1',
             'RtnMessage' => '成功',
             'MerTradeID' => '20151202001',
@@ -99,28 +100,20 @@ class GatewayTest extends GatewayTestCase
             'CardNumber' => '4311-2222-2222-2222',
             'PaymentDate' => '2016-05-06 16:41:37',
             'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
-        ]);
+        ];
+
+        $this->getHttpRequest()->request->add($data);
+        $request = $this->gateway->acceptNotification([]);
 
         self::assertEquals('成功', $request->getMessage());
         self::assertEquals('20151202001', $request->getTransactionId());
         self::assertEquals(NotificationInterface::STATUS_COMPLETED, $request->getTransactionStatus());
-        self::assertEquals([
-            'RtnCode' => '1',
-            'RtnMessage' => '成功',
-            'MerTradeID' => '20151202001',
-            'MerProductID' => 'sj6511',
-            'MerUserID' => 'Karl01',
-            'Amount' => '30',
-            'Auth_code' => '12345',
-            'CardNumber' => '4311-2222-2222-2222',
-            'PaymentDate' => '2016-05-06 16:41:37',
-            'Validate' => 'e6d2412d68c714f9e6c1185d9e6698ba',
-        ], $request->getData());
+        self::assertEquals($data, $request->getData());
     }
 
     public function testReceiveTransactionInfo(): void
     {
-        $response = $this->gateway->completePurchase([
+        $this->getHttpRequest()->request->add([
             'RtnCode' => '5',
             'RtnMessage' => '成功',
             'MerTradeID' => '20151202001',
@@ -132,7 +125,8 @@ class GatewayTest extends GatewayTestCase
             'VatmBankCode' => '123',
             'VatmAccount' => '12345678',
             'Validate' => '55aab2d7bec68a3a05183e3764ad4e3a',
-        ])->send();
+        ]);
+        $response = $this->gateway->completePurchase()->send();
 
         self::assertTrue($response->isSuccessful());
         self::assertEquals('成功', $response->getMessage());

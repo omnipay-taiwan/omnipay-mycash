@@ -38,7 +38,7 @@ class Gateway extends AbstractGateway
 
     public function completePurchase(array $options = [])
     {
-        if (array_key_exists('RtnCode', $options) && (string) $options['RtnCode'] === '5') {
+        if ($this->httpRequest->request->get('RtnCode') === '5') {
             return $this->receiveTransactionInfo($options);
         }
 
@@ -47,7 +47,7 @@ class Gateway extends AbstractGateway
 
     public function acceptNotification(array $options = [])
     {
-        if (array_key_exists('RtnCode', $options) && (string) $options['RtnCode'] === '5') {
+        if ($this->httpRequest->request->get('RtnCode') === '5') {
             return $this->receiveTransactionInfo($options);
         }
 
