@@ -2,10 +2,10 @@
 
 namespace Omnipay\MyCash\Tests\Message;
 
-use Omnipay\MyCash\Message\ReceiveTransactionInfoRequest;
+use Omnipay\MyCash\Message\GetPaymentInfoRequest;
 use Omnipay\Tests\TestCase;
 
-class ReceiveTransactionInfoRequestTest extends TestCase
+class GetPaymentInfoRequestTest extends TestCase
 {
     private $initialize = [
         'HashKey' => 'FEFRGFEFWEF', // 廠商 HashKey(由易沛提供)
@@ -30,7 +30,7 @@ class ReceiveTransactionInfoRequestTest extends TestCase
         ];
 
         $this->getHttpRequest()->request->add($options);
-        $request = new ReceiveTransactionInfoRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request = new GetPaymentInfoRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize($this->initialize);
 
         $response = $request->send();
@@ -66,7 +66,7 @@ class ReceiveTransactionInfoRequestTest extends TestCase
         ];
 
         $this->getHttpRequest()->request->add($options);
-        $request = new ReceiveTransactionInfoRequest($this->getHttpClient(), $this->getHttpRequest());
+        $request = new GetPaymentInfoRequest($this->getHttpClient(), $this->getHttpRequest());
         $request->initialize($this->initialize);
 
         $response = $request->send();

@@ -7,7 +7,7 @@ use Omnipay\MyCash\Message\AcceptNotificationRequest;
 use Omnipay\MyCash\Message\CompletePurchaseRequest;
 use Omnipay\MyCash\Message\FetchTransactionRequest;
 use Omnipay\MyCash\Message\PurchaseRequest;
-use Omnipay\MyCash\Message\ReceiveTransactionInfoRequest;
+use Omnipay\MyCash\Message\GetPaymentInfoRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
 
 /**
@@ -39,7 +39,7 @@ class Gateway extends AbstractGateway
     public function completePurchase(array $options = [])
     {
         if ($this->httpRequest->request->get('RtnCode') === '5') {
-            return $this->receiveTransactionInfo($options);
+            return $this->getPaymentInfo($options);
         }
 
         return $this->createRequest(CompletePurchaseRequest::class, $options);
@@ -48,15 +48,15 @@ class Gateway extends AbstractGateway
     public function acceptNotification(array $options = [])
     {
         if ($this->httpRequest->request->get('RtnCode') === '5') {
-            return $this->receiveTransactionInfo($options);
+            return $this->getPaymentInfo($options);
         }
 
         return $this->createRequest(AcceptNotificationRequest::class, $options);
     }
 
-    public function receiveTransactionInfo(array $options = [])
+    public function getPaymentInfo(array $options = [])
     {
-        return $this->createRequest(ReceiveTransactionInfoRequest::class, $options);
+        return $this->createRequest(GetPaymentInfoRequest::class, $options);
     }
 
     public function fetchTransaction(array $options = [])

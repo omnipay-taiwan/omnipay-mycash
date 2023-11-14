@@ -6,7 +6,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
 
-class ReceiveTransactionInfoRequest extends AbstractRequest
+class GetPaymentInfoRequest extends AbstractRequest
 {
     use HasMyCash;
 
@@ -28,10 +28,10 @@ class ReceiveTransactionInfoRequest extends AbstractRequest
 
     /**
      * @param  array  $data
-     * @return ReceiveTransactionInfoResponse
+     * @return GetPaymentInfoResponse
      */
     public function sendData($data)
     {
-        return $this->response = new ReceiveTransactionInfoResponse($this, $data);
+        return $this->response = new GetPaymentInfoResponse($this, $data);
     }
 }

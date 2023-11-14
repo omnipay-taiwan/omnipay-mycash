@@ -111,7 +111,7 @@ class GatewayTest extends GatewayTestCase
         self::assertEquals($data, $request->getData());
     }
 
-    public function testReceiveTransactionInfo(): void
+    public function testGetPaymentInfo(): void
     {
         $this->getHttpRequest()->request->add([
             'RtnCode' => '5',

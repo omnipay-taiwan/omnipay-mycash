@@ -2,7 +2,7 @@
 
 namespace Omnipay\MyCash\Message;
 
-class ReceiveTransactionInfoResponse extends CompletePurchaseResponse
+class GetPaymentInfoResponse extends CompletePurchaseResponse
 {
     /**
      * @return bool
