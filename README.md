@@ -9,11 +9,8 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/omnipay-taiwan/omnipay-mycash.svg?style=flat-square)](https://scrutinizer-ci.com/g/omnipay-taiwan/omnipay-mycash)
 [![Total Downloads](https://img.shields.io/packagist/dt/omnipay-taiwan/omnipay-mycash.svg?style=flat-square)](https://packagist.org/packages/omnipay-taiwan/omnipay-mycash)
 
-
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements mycash support for Omnipay.
-
-**Note:** Replace `omnipay-taiwan`, `recca0120`, `:author_username`, `https://github.com/recca0120`, `recca0120@gmail.com`, `mycash`, `:package_description` and `mycash` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
 PSRs you support to avoid any confusion with users and contributors.
@@ -30,7 +27,7 @@ $ composer require league/omnipay omnipay-taiwan/omnipay-mycash
 
 The following gateways are provided by this package:
 
- * mycash
+* mycash
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay) repository.
 
@@ -44,7 +41,8 @@ If you want to keep up to date with release announcements, discuss ideas for the
 or ask more detailed questions, there is also a [mailing list](https://groups.google.com/forum/#!forum/omnipay) which
 you can subscribe to.
 
-If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/omnipay-taiwan/omnipay-mycash/issues),
+If you believe you have found a bug, please report it using
+the [GitHub issue tracker](https://github.com/omnipay-taiwan/omnipay-mycash/issues),
 or better yet, fork the library and submit a pull request.
 
 ## Change log
@@ -67,7 +65,7 @@ If you discover any security related issues, please email recca0120@gmail.com in
 
 ## Credits
 
-- [recca0120](https://github.com/:author_username)
+- [recca0120](https://github.com/recca0120)
 - [All Contributors](../../contributors)
 
 ## License
