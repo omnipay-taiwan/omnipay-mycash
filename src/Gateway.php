@@ -6,8 +6,8 @@ use Omnipay\Common\AbstractGateway;
 use Omnipay\MyCash\Message\AcceptNotificationRequest;
 use Omnipay\MyCash\Message\CompletePurchaseRequest;
 use Omnipay\MyCash\Message\FetchTransactionRequest;
-use Omnipay\MyCash\Message\PurchaseRequest;
 use Omnipay\MyCash\Message\GetPaymentInfoRequest;
+use Omnipay\MyCash\Message\PurchaseRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
 
 /**

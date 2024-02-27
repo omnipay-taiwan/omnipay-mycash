@@ -12,11 +12,11 @@ use Omnipay\MyCash\Traits\HasMyCash;
 
 class PurchaseRequest extends AbstractRequest
 {
-    use HasMyCash;
-    use HasDefaults;
+    use HasAmount;
     use HasCreditCard;
     use HasCVS;
-    use HasAmount;
+    use HasDefaults;
+    use HasMyCash;
 
     /**
      * @return string
