@@ -13,4 +13,12 @@ class AcceptNotificationResponse extends CompletePurchaseResponse implements Not
     {
         return $this->isSuccessful() ? self::STATUS_COMPLETED : self::STATUS_FAILED;
     }
+
+    /**
+     * @return string
+     */
+    public function getReply()
+    {
+        return 'OK';
+    }
 }

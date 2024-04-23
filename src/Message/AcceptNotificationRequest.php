@@ -48,6 +48,14 @@ class AcceptNotificationRequest extends CompletePurchaseRequest implements Notif
     }
 
     /**
+     * @return string
+     */
+    public function getReply()
+    {
+        return $this->getNotificationResponse()->getReply();
+    }
+
+    /**
      * @return AcceptNotificationResponse
      */
     private function getNotificationResponse()
