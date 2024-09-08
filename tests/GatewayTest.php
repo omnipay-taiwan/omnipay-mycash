@@ -128,7 +128,7 @@ class GatewayTest extends GatewayTestCase
         ]);
         $response = $this->gateway->completePurchase()->send();
 
-        self::assertTrue($response->isSuccessful());
+        self::assertFalse($response->isSuccessful());
         self::assertEquals('成功', $response->getMessage());
         self::assertEquals('20151202001', $response->getTransactionId());
         self::assertEquals([

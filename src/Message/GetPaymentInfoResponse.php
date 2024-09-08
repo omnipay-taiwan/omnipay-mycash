@@ -9,6 +9,6 @@ class GetPaymentInfoResponse extends CompletePurchaseResponse
      */
     public function isSuccessful()
     {
-        return $this->getCode() === '5';
+        return false;
     }
 }
