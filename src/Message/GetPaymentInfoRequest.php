@@ -2,7 +2,7 @@
 
 namespace Omnipay\MyCash\Message;
 
-use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 use Omnipay\MyCash\Traits\HasMyCash;
 
@@ -13,14 +13,13 @@ class GetPaymentInfoRequest extends AbstractRequest
     /**
      * @return array
      *
-     * @throws InvalidResponseException
+     * @throws InvalidRequestException
      */
     public function getData()
     {
         $data = $this->httpRequest->request->all();
-
-        if (! hash_equals($this->httpRequest->request->get('Validate'), $this->makeHash($data))) {
-            throw new InvalidResponseException('Incorrect hash');
+        if (! hash_equals($this->makeHash($data), $this->httpRequest->request->get('Validate', ''))) {
+            throw new InvalidRequestException('Incorrect hash');
         }
 
         return $data;

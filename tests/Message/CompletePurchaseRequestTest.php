@@ -2,7 +2,7 @@
 
 namespace Omnipay\MyCash\Tests\Message;
 
-use Omnipay\Common\Exception\InvalidResponseException;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\MyCash\Message\CompletePurchaseRequest;
 use Omnipay\Tests\TestCase;
 
@@ -16,7 +16,7 @@ class CompletePurchaseRequestTest extends TestCase
 
     public function testValidateFails(): void
     {
-        $this->expectException(InvalidResponseException::class);
+        $this->expectException(InvalidRequestException::class);
         $this->expectExceptionMessage('Incorrect hash');
 
         $options = [
